@@ -12,6 +12,7 @@ AddEventHandler('playerDropped', function(reason)
 	local src = source
     local groupID = FindGroupByMember(src)
     if groupID > 0 then 
+        TriggerClientEvent('group:leaveGroup', src)
         RemovePlayerFromGroup(src, groupID) -- This function now handles changing leader as well.
     end	
 end)
@@ -124,6 +125,7 @@ end)
 -- Kicks the specified player from the group.
 RegisterNetEvent("groups:kickMember", function(player, groupID)
     RemovePlayerFromGroup(player, groupID)
+    TriggerClientEvent('group:leaveGroup', player)
     TriggerClientEvent("QBCore:Notify", player, "You were removed from the group", "error")
 end)
 
@@ -296,6 +298,7 @@ function DestroyGroup(groupID)
     removeGroupMembers(groupID)
     for i=1, #m do 
          TriggerClientEvent("groups:GroupDestroy", m[i])
+         TriggerClientEvent('group:leaveGroup', m[i])
     end
     Groups[groupID] = nil
 end

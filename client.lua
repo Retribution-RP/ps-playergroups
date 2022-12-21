@@ -72,7 +72,9 @@ RegisterNetEvent("groups:removeBlip", function(name)
         GroupBlips[i] = nil
     end
 end)
-
+RegisterNetEvent('group:leaveGroup',function ()
+    TriggerEvent('leaveGroup')
+end)
 -- Locations blip by the name of the group blip and returns its index in the table.
 function FindBlipByName(name)
     for i=1, #GroupBlips do
